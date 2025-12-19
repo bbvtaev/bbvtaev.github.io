@@ -5,6 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/realeyes1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bbvtaev</title>
+    <script type="text/javascript">
+      // Этот скрипт восстанавливает путь из строки запs\\\\роса обратно в URL
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&') 
+          }).filter(function(s) {
+            return s.slice(0, 2) === 'p=/'
+          })[0];
+          if (decoded !== undefined) {
+            window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded.slice(2) +
+              (l.search.split('&').filter(function(s) {
+                return s.slice(0, 2) !== 'p=/'
+              }).join('&').replace(/&/g, '~and~').replace(/^&/, '') || '') +
+              l.hash
+            );
+          }
+        }
+      }(window.location))
+    </script>
     <script type="module" crossorigin src="/assets/index-CPlMnC0e.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-C0X03uTp.css">
   </head>
