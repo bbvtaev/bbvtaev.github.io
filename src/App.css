@@ -54,7 +54,6 @@
 }
 
 .links a {
-  margin-right: 20px;
   color: #d8d8d8;
   text-decoration: none;
   font-weight: 500;
@@ -68,16 +67,25 @@
 .links_home {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  font-weight: 500;
   gap: 10px;
   padding: 5px;
+  color: #d8d8d8;
   border-radius: 5px;
-  transition:  background-color 0.3s;
+  cursor: pointer;
+  transition: color, background-color 0.3s ease-in-out;
 }
 
 .links_home:hover {
+  color: #000;
   background-color: #fff;
 }
 
+.home__separator {
+  margin: 0 10px;
+  padding-top: 5px;
+}
 
 .home__img {
   width: 24px;
@@ -87,6 +95,7 @@
 .home__descr {
   font-size: 16px;
   margin: 0;
+  transition: color 0.3s ease-in-out;
 }
 
 .snow_btn {
@@ -97,7 +106,7 @@
   padding-bottom: 3px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: color, background-color 0.3s ease-in-out;
 }
 
 .snow_btn:hover {
@@ -107,6 +116,12 @@
 .snow_btn__svg {
   width: 16px;
   height: 16px;
+  stroke: #fff;
+}
+
+.snow_btn__svg__bigger {
+  width: 20px;
+  height: 20px;
   stroke: #fff;
 }
 

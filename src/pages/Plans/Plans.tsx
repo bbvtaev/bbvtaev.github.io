@@ -1,3 +1,4 @@
+
 export const Plans = () => {
     return (
         <div className="page">

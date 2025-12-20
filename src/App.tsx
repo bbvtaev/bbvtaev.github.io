@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import { Projects } from './pages/Projects/Projects';
 import { Plans } from './pages/Plans/Plans';
 import SeasonEffect, { type Season } from './SeasonEffect';
+import { Main } from './pages/Main/Main';
 
 const getCurrentSeason = (): Season => {
   const month = new Date().getMonth();
@@ -53,23 +54,58 @@ const SeasonIcons = {
   )
 };
 
-const Home = () => <div className="page"><h1>Home Page</h1><p>Welcome to my site.</p></div>;
+const NavLinks = () => {
+  const location = useLocation(); 
+
+  return (
+    <div className="links">
+      <Link to="/">
+        <div className='links_home'>
+          <img className='home__img' src="realeyes_mini.png" alt="realeyes" />
+          <p className='home__descr'>Бакар Батаев</p>
+        </div>
+      </Link>
+
+      {location.pathname === '/projects' && (
+        <>
+          <p className='home__separator'>
+            <svg className="snow_btn__svg__bigger" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 3L8 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </p>
+          <div className='links_home'>
+            <p className='home__descr'>Проекты</p>
+          </div>
+        </>
+      )}
+
+      {location.pathname === '/plans' && (
+        <>
+          <p className='home__separator'>
+             <svg className="snow_btn__svg__bigger" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 3L8 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </p>
+          <div className='links_home'>
+            <p className='home__descr'>Планы</p>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
 
 function App() {
   const currentSeason = useMemo(() => getCurrentSeason(), []);
-  
   const [isEffectVisible, setIsEffectVisible] = useState<boolean>(false);
   const [isNavSticky, setIsNavSticky] = useState(false);
 
-  const toggleEffect = () => {
-    setIsEffectVisible(prev => !prev);
-  };
+  const toggleEffect = () => setIsEffectVisible(prev => !prev);
 
   useEffect(() => {
     const onScroll = () => {
       setIsNavSticky(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -80,47 +116,24 @@ function App() {
         <SeasonEffect isVisible={isEffectVisible} type={currentSeason} />
 
         <nav className="nav nav__static">
-          <div className="links">
-            <Link to="/">
-              <div className='links_home'>
-                <img className='home__img' src="realeyes.png" alt="realeyes" />
-                <p className='home__descr'>Бакар Батаев</p>
-              </div>
-            </Link>
-          </div>
+          <NavLinks />
           
-          <button 
-            className={`snow_btn ${isEffectVisible ? 'active' : ''}`} 
-            onClick={toggleEffect}
-            title={`Toggle ${currentSeason} mode`}
-          >
+          <button className={`snow_btn ${isEffectVisible ? 'active' : ''}`} onClick={toggleEffect}>
             {SeasonIcons[currentSeason]}
           </button>
         </nav>
 
         <nav className={`nav nav__fixed ${isNavSticky ? 'visible' : ''}`}>
-          <div className="links">
-            <Link to="/">
-              <div className='links_home'>
-                <img className='home__img' src="realeyes.png" alt="realeyes" />
-                <p className='home__descr'>Бакар Батаев</p>
-              </div>
-            </Link>
-          </div>
+          <NavLinks />
           
-          <button 
-            className={`snow_btn ${isEffectVisible ? 'active' : ''}`} 
-            onClick={toggleEffect}
-            title={`Toggle ${currentSeason} mode`}
-          >
+          <button className={`snow_btn ${isEffectVisible ? 'active' : ''}`} onClick={toggleEffect}>
             {SeasonIcons[currentSeason]}
           </button>
         </nav>
 
-
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Main />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/*" element={"404"} />

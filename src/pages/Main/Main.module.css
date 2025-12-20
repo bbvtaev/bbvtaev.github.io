@@ -1,0 +1,146 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: left;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.hero {
+  margin-bottom: 48px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  color: #ccc;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #555;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 8px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: #1a1a1a;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border: 1px solid #333;
+}
+
+.experienceItem {
+  margin-bottom: 24px;
+}
+
+.expHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.company {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.period {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.expRole {
+  color: #aaa;
+  margin: 4px 0 12px 0;
+}
+
+.expList {
+  padding-left: 18px;
+  color: #999;
+}
+
+.expList li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.contacts {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.3s;
+}
+
+.link:hover {
+  border-bottom: 1px solid #fff;
+}
+
+.resumeBtn {
+  margin-left: auto;
+  background: #fff;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.resumeBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* Адаптив для телефонов */
+@media (max-width: 600px) {
+  .title { font-size: 2.2rem; }
+  .expHeader { flex-direction: column; }
+  .period { margin-top: 4px; }
+  .contacts { flex-direction: column; align-items: flex-start; }
+  .resumeBtn { margin-left: 0; text-align: center; }
+}
