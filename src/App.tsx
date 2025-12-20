@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import { Projects } from './pages/Projects/Projects';
@@ -16,7 +16,7 @@ const getCurrentSeason = (): Season => {
 const SeasonIcons = {
   winter: (
     <svg className='snow_btn__svg' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3V21M16 4L12 8L8.00878 4M8.00878 20L12 16L16 20M3 12H21M4 8L8.00878 12L4 16M20 16L16 12L20 8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3V21M16 4L12 8L8.00878 4M8.00878 20L12 16L16 20M3 12H21M4 8L8.00878 12L4 16M20 16L16 12L20 8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ),
   spring: (
@@ -34,7 +34,7 @@ const SeasonIcons = {
     </svg>
   ),
   summer: (
-    <svg className='snow_btn__svg' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg className='snow_btn__svg' viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -59,20 +59,34 @@ function App() {
   const currentSeason = useMemo(() => getCurrentSeason(), []);
   
   const [isEffectVisible, setIsEffectVisible] = useState<boolean>(false);
+  const [isNavSticky, setIsNavSticky] = useState(false);
 
   const toggleEffect = () => {
     setIsEffectVisible(prev => !prev);
   };
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsNavSticky(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <Router>
       <div className="app-container">
         <SeasonEffect isVisible={isEffectVisible} type={currentSeason} />
 
-        <nav className="nav">
+        <nav className="nav nav__static">
           <div className="links">
-            <Link to="/projects">Projects</Link>
-            <Link to="/plans">Plans</Link>
+            <Link to="/">
+              <div className='links_home'>
+                <img className='home__img' src="realeyes.png" alt="realeyes" />
+                <p className='home__descr'>Бакар Батаев</p>
+              </div>
+            </Link>
           </div>
           
           <button 
@@ -84,16 +98,37 @@ function App() {
           </button>
         </nav>
 
+        <nav className={`nav nav__fixed ${isNavSticky ? 'visible' : ''}`}>
+          <div className="links">
+            <Link to="/">
+              <div className='links_home'>
+                <img className='home__img' src="realeyes.png" alt="realeyes" />
+                <p className='home__descr'>Бакар Батаев</p>
+              </div>
+            </Link>
+          </div>
+          
+          <button 
+            className={`snow_btn ${isEffectVisible ? 'active' : ''}`} 
+            onClick={toggleEffect}
+            title={`Toggle ${currentSeason} mode`}
+          >
+            {SeasonIcons[currentSeason]}
+          </button>
+        </nav>
+
+
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/plans" element={<Plans />} />
+            <Route path="/*" element={"404"} />
           </Routes>
         </main>
 
         <footer className="footer">
-          dear me
+          dear me | contact me
         </footer>
       </div>
     </Router>
