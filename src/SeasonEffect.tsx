@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-// Типы сезонов
 export type Season = 'winter' | 'spring' | 'summer' | 'autumn';
 
 interface SeasonEffectProps {
   isVisible: boolean;
-  type: Season;
+  type?: Season; 
 }
 
 interface Particle {
@@ -15,11 +14,38 @@ interface Particle {
   speed: number;
   wind: number;
   color: string;
-  angle: number; // Для раскачивания (осень/весна)
+  angle: number;
 }
+
+const getCurrentSeason = (): Season => {
+  const month = new Date().getMonth(); 
+  
+  if (month === 11 || month === 0 || month === 1) return 'winter';
+  
+  
+  if (month >= 2 && month <= 4) return 'spring';
+  
+  
+  if (month >= 5 && month <= 7) return 'summer';
+  
+  
+  return 'autumn';
+};
 
 const SeasonEffect: React.FC<SeasonEffectProps> = ({ isVisible, type }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  
+  // Если type передали в пропсах — берем его, если нет — вычисляем сами
+  const [activeSeason, setActiveSeason] = useState<Season>(type || getCurrentSeason());
+
+  // Следим за изменением пропа type (если вдруг захотим переключить вручную)
+  useEffect(() => {
+    if (type) {
+      setActiveSeason(type);
+    } else {
+      setActiveSeason(getCurrentSeason());
+    }
+  }, [type]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -30,7 +56,6 @@ const SeasonEffect: React.FC<SeasonEffectProps> = ({ isVisible, type }) => {
     let animationFrameId: number;
     const particles: Particle[] = [];
     
-    // Настройки для каждого сезона
     const config = {
       winter: { count: 150, color: () => '#ffffff', size: 0.5 },
       spring: { count: 80, color: () => '#ffb7c5', size: 2 }, 
@@ -38,7 +63,8 @@ const SeasonEffect: React.FC<SeasonEffectProps> = ({ isVisible, type }) => {
       autumn: { count: 60, color: () => ['#d35400', '#e67e22', '#f1c40f'][Math.floor(Math.random() * 3)], size: 3 }
     };
 
-    const current = config[type];
+    // Используем activeSeason вместо type
+    const current = config[activeSeason];
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -66,26 +92,20 @@ const SeasonEffect: React.FC<SeasonEffectProps> = ({ isVisible, type }) => {
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.fillStyle = p.color;
-
-        // Сбрасываем тени от лета, чтобы они не рисовались для других сезонов
         ctx.shadowBlur = 0; 
 
-        if (type === 'winter') {
+        if (activeSeason === 'winter') {
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          
           p.y += p.speed;
-          p.x += p.wind; // <--- ДОБАВИЛИ ВЕТЕР
+          p.x += p.wind; 
         } 
-        else if (type === 'spring' || type === 'autumn') {
+        else if (activeSeason === 'spring' || activeSeason === 'autumn') {
           p.angle += 0.02;
-          // Добавляем и покачивание (sin), и общий вектор ветра
           p.x += p.wind + Math.sin(p.angle) * 0.5; 
           p.y += p.speed;
-
           ctx.ellipse(p.x, p.y, p.radius, p.radius * 1.5, p.angle, 0, Math.PI * 2);
         } 
-        else if (type === 'summer') {
-          // Для лета можно сделать, чтобы ветер чуть-чуть влиял на общее парение
+        else if (activeSeason === 'summer') {
           p.y += Math.sin(p.angle) * 0.2;
           p.x += Math.cos(p.angle) * 0.2 + p.wind * 0.1; 
           p.angle += 0.01;
@@ -97,13 +117,10 @@ const SeasonEffect: React.FC<SeasonEffectProps> = ({ isVisible, type }) => {
 
         ctx.fill();
 
-        // Бесконечный цикл
         if (p.y > canvas.height) {
           p.y = -10;
           p.x = Math.random() * canvas.width;
         }
-        
-        // Проверка границ по X, чтобы частицы не улетали за экран из-за ветра
         if (p.x > canvas.width) p.x = 0;
         if (p.x < 0) p.x = canvas.width;
       });
@@ -116,7 +133,7 @@ const SeasonEffect: React.FC<SeasonEffectProps> = ({ isVisible, type }) => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [type]); // Перезапускаем при смене сезона
+  }, [activeSeason]); 
 
   return (
     <canvas
