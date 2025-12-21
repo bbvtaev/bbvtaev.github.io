@@ -7,3 +7,59 @@
   text-align: center;
   animation: fadeIn 0.5s ease;
 }
+
+.projectsContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: left;
+    width: 100%;
+}
+
+.backLink {
+    color: #888;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.backLink:hover {
+    color: white;
+}
+
+.highlight {
+    color: #4CAF50; /* Или любой акцентный цвет */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cardTitle {
+    margin-top: 0;
+}
+
+.techTags {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.techTag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #ccc;
+}

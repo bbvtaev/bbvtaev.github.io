@@ -1,53 +1,48 @@
-import styles from './Main.module.css'
+import { Link } from 'react-router-dom';
+import styles from './Main.module.css';
+import { experiences } from '../../data'; // Путь к вашему файлу данных
 
 export const Main = () => {
     return (
         <div className={styles.container}>
-            <section className={styles.hero}>
+            {/* Hero Section ... (без изменений) */}
+             <section className={styles.hero}>
                 <div className={styles.heroHeader}>
-                    <img 
-                        src="realeyes.png" 
-                        alt="Bakar Bataev" 
-                        className={styles.avatar} 
-                    />
+                    <img src="realeyes.png" alt="Bakar Bataev" className={styles.avatar} />
                     <div className={styles.heroText}>
                         <h1 className={styles.title}>Бакар Батаев</h1>
                         <p className={styles.subtitle}>Backend Developer</p>
                     </div>
                 </div>
                 <p className={styles.description}>
-                    Разработчик с невероятным опытом в разработке и командной работе. Я решу все твои проблемы. Боль пройдет.
-                    Был участником стартап проектов и доводил их до финансовых прорывов засчет своих умений в архитектуру
-                    Изменял структуры проектов и менял составляющие, улучшая системы.
-                    Мне нет равных dear me I think im becoming a god
+                   Разработчик с невероятным опытом...
                 </p>
             </section>
 
             <section className={styles.section}>
                 <h2 className={styles.sectionTitle}>Опыт / Проекты</h2>
-                <div className={styles.experienceItem}>
-                    <div className={styles.expHeader}>
-                        <span className={styles.company}>RedLab</span>
-                        <span className={styles.period}>Апрель 2024 - Текущее время</span>
-                    </div>
-                    <p className={styles.expRole}>Middle Golang Developer</p>
-                    <p className={styles.expDescription}>
-                        фывафыва
-                    </p>
-                </div>
-                <div className={styles.experienceItem}>
-                    <div className={styles.expHeader}>
-                        <span className={styles.company}>Approfy</span>
-                        <span className={styles.period}>Январь 2023 - Март 2024</span>
-                    </div>
-                    <p className={styles.expRole}>Junior Golang Developer</p>
-                    <p className={styles.expDescription}>
-                        фывафыва
-                    </p>
+                <div className={styles.experienceList}>
+                    {experiences.map((exp) => (
+                        // Оборачиваем в Link, ведущий на /projects/ID
+                        <Link to={`/projects/${exp.id}`} key={exp.id} className={styles.experienceLink}>
+                            <div className={styles.experienceItem}>
+                                <div className={styles.expHeader}>
+                                    <span className={styles.company}>{exp.company}</span>
+                                    <span className={styles.period}>{exp.period}</span>
+                                </div>
+                                <p className={styles.expRole}>{exp.role}</p>
+                                <p className={styles.expDescription}>
+                                    {exp.description}
+                                </p>
+                                <span className={styles.moreLabel}>Посмотреть проекты →</span>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </section>
 
-            <section className={styles.section}>
+            {/* Остальные секции (Стек, Контакты) ... */}
+             <section className={styles.section}>
                 <h2 className={styles.sectionTitle}>Стек технологий</h2>
                 <div className={styles.tags}>
                     {['Go', 'PostgreSQL', 'Redis', 'Docker', 'Kubernetes', 'gRPC', 'RabbitMQ', 'Nginx'].map(tech => (
@@ -55,8 +50,7 @@ export const Main = () => {
                     ))}
                 </div>
             </section>
-
-            <section className={styles.section}>
+             <section className={styles.section}>
                 <h2 className={styles.sectionTitle}>Как связаться</h2>
                 <div className={styles.contacts}>
                     <a href="https://t.me/bbvtaev" className={styles.link}>Telegram</a>

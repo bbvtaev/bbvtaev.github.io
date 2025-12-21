@@ -5,6 +5,7 @@ import { Projects } from './pages/Projects/Projects';
 import { Plans } from './pages/Plans/Plans';
 import SeasonEffect, { type Season } from './SeasonEffect';
 import { Main } from './pages/Main/Main';
+import { experiences } from './data';
 
 const getCurrentSeason = (): Season => {
   const month = new Date().getMonth();
@@ -54,11 +55,37 @@ const SeasonIcons = {
   )
 };
 
+const routeNames: Record<string, string> = {
+  'projects': 'Проекты',
+  'plans': 'Планы',
+};
+
+// Функция-помощник: превращает "redlab" в "RedLab", а "projects" в "Проекты"
+const getDisplayName = (segment: string) => {
+  if (routeNames[segment]) return routeNames[segment];
+  const exp = experiences.find(e => e.id === segment);
+  if (exp) return exp.company;
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
+};
+
+// Компонент стрелочки-разделителя
+const Separator = () => (
+  <p className='home__separator'>
+    <svg className="snow_btn__svg__bigger" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 3L8 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  </p>
+);
+
+// --- ОБНОВЛЕННЫЙ КОМПОНЕНТ NAVLINKS ---
 const NavLinks = () => {
-  const location = useLocation(); 
+  const location = useLocation();
+  // Разбиваем путь (например: /projects/redlab) на массив ['projects', 'redlab']
+  const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
     <div className="links">
+      {/* 1. Всегда показываем ссылку на главную */}
       <Link to="/">
         <div className='links_home'>
           <img className='home__img' src="realeyes_mini.png" alt="realeyes" />
@@ -66,31 +93,23 @@ const NavLinks = () => {
         </div>
       </Link>
 
-      {location.pathname === '/projects' && (
-        <>
-          <p className='home__separator'>
-            <svg className="snow_btn__svg__bigger" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 3L8 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </p>
-          <div className='links_home'>
-            <p className='home__descr'>Проекты</p>
-          </div>
-        </>
-      )}
+      {/* 2. Генерируем остальные звенья цепи */}
+      {pathnames.map((value, index) => {
+        // Строим путь накоплением: /projects, затем /projects/redlab
+        const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+        const displayName = getDisplayName(value);
 
-      {location.pathname === '/plans' && (
-        <>
-          <p className='home__separator'>
-             <svg className="snow_btn__svg__bigger" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 3L8 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </p>
-          <div className='links_home'>
-            <p className='home__descr'>Планы</p>
+        return (
+          <div key={to} style={{ display: 'flex', alignItems: 'center' }}>
+            <Separator />
+            <Link to={to}>
+              <div className='links_home'>
+                <p className='home__descr'>{displayName}</p>
+              </div>
+            </Link>
           </div>
-        </>
-      )}
+        );
+      })}
     </div>
   );
 };
@@ -135,6 +154,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:companyId" element={<Projects />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/*" element={"404"} />
           </Routes>
