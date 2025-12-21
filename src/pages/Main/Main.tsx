@@ -8,7 +8,7 @@ export const Main = () => {
             {/* Hero Section ... (без изменений) */}
              <section className={styles.hero}>
                 <div className={styles.heroHeader}>
-                    <img src="realeyes.png" alt="Bakar Bataev" className={styles.avatar} />
+                    <img src="/realeyes_avg.png" alt="Bakar Bataev" className={styles.avatar} />
                     <div className={styles.heroText}>
                         <h1 className={styles.title}>Бакар Батаев</h1>
                         <p className={styles.subtitle}>Backend Developer</p>
@@ -23,7 +23,6 @@ export const Main = () => {
                 <h2 className={styles.sectionTitle}>Опыт / Проекты</h2>
                 <div className={styles.experienceList}>
                     {experiences.map((exp) => (
-                        // Оборачиваем в Link, ведущий на /projects/ID
                         <Link to={`/projects/${exp.id}`} key={exp.id} className={styles.experienceLink}>
                             <div className={styles.experienceItem}>
                                 <div className={styles.expHeader}>

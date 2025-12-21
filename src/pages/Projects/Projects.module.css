@@ -6,6 +6,7 @@
 .projects {
   text-align: center;
   animation: fadeIn 0.5s ease;
+  width: 100%;
 }
 
 .projectsContainer {
@@ -14,6 +15,8 @@
     padding: 2rem;
     text-align: left;
     width: 100%;
+
+    box-sizing: border-box; 
 }
 
 .backLink {
@@ -21,6 +24,7 @@
     text-decoration: none;
     margin-bottom: 2rem;
     display: inline-block;
+    transition: color 0.2s; 
 }
 
 .backLink:hover {
@@ -28,12 +32,12 @@
 }
 
 .highlight {
-    color: #4CAF50; /* Или любой акцентный цвет */
+    color: #4CAF50; 
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
 }
@@ -43,10 +47,12 @@
     padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    word-wrap: break-word; 
 }
 
 .cardTitle {
     margin-top: 0;
+    line-height: 1.4;
 }
 
 .techTags {
@@ -62,4 +68,26 @@
     border-radius: 4px;
     font-size: 0.8rem;
     color: #ccc;
+}
+
+@media (max-width: 480px) {
+    .projectsContainer {
+        padding: 1rem; 
+    }
+
+    .grid {
+        
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .card {
+        padding: 1.25rem; 
+    }
+
+    .backLink {
+        margin-bottom: 1.5rem;
+        padding: 5px 0; 
+    }
 }
