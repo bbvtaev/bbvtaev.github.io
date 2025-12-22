@@ -170,6 +170,15 @@
     padding: 4px;
   }
 
+  .snow_btn__svg__bigger {
+    width: 16px;
+    height: 16px;
+  }
+
+  .home__separator {
+    margin: 0 3px;
+  }
+
   .home__descr {
     font-size: 14px;
   }

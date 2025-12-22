@@ -3,14 +3,12 @@ import styles from './Projects.module.css';
 import { experiences } from '../../data';
 
 export const Projects = () => {
-    const { companyId } = useParams(); // Получаем параметр из URL
+    const { companyId } = useParams();
 
-    // Если ID передан, ищем конкретный опыт
     const selectedExp = companyId 
         ? experiences.find(e => e.id === companyId) 
         : null;
 
-    // Если мы на странице /projects (без ID), показываем список всех
     if (!companyId) {
         return (
             <div className={styles.projectsContainer}>
@@ -21,7 +19,7 @@ export const Projects = () => {
                         <div className={styles.grid}>
                             {exp.projects.map((proj, idx) => (
                                 <div key={idx} className={styles.card}>
-                                    <h3>{proj.name}</h3>
+                                    <h3 className={styles.cardTitle}>{proj.name}</h3>
                                     <p>{proj.desc}</p>
                                     <div className={styles.techStack}>
                                         {proj.technologies.join(' • ')}
