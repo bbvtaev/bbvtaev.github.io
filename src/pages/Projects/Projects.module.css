@@ -1,92 +1,198 @@
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.projects {
-  text-align: center;
-  animation: fadeIn 0.5s ease;
-  width: 100%;
-}
-
 .projectsContainer {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 2rem;
-    text-align: left;
-    width: 100%;
+    padding: 80px 24px;
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    box-sizing: border-box; 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Навигация (Хлебные крошки) */
+.breadcrumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 10px;
+    color: #444;
 }
 
 .backLink {
     color: #888;
     text-decoration: none;
-    margin-bottom: 2rem;
-    display: inline-block;
-    transition: color 0.2s; 
+    transition: color 0.2s;
 }
 
 .backLink:hover {
-    color: white;
+    color: #fff;
+}
+
+.separator { color: #222; }
+
+/* Header */
+.header {
+    margin-bottom: 60px;
+}
+
+.mainTitle {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
 }
 
 .highlight {
-    color: #4CAF50; 
+    color: #fff;
+    text-decoration: underline rgba(255, 255, 255, 0.1);
 }
 
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.metaInfo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 8px;
+}
+
+.roleLabel { color: #444; }
+.roleValue { color: #00ff41; } /* Акцентный зеленый */
+
+/* Company Blocks (для общего списка) */
+.companyBlock {
+    margin-bottom: 80px;
+}
+
+.companyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.companyName {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.companyPeriod {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+/* Project Cards Grid */
 .grid {
     display: grid;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 24px;
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1.5rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    word-wrap: break-word; 
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 32px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.projectNumber {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #00ff41;
+    letter-spacing: 1px;
 }
 
 .cardTitle {
-    margin-top: 0;
-    line-height: 1.4;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
 }
 
-.techTags {
-    margin-top: 1rem;
+.cardDesc {
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+/* Tech Stack */
+.techStack {
     display: flex;
-    gap: 0.5rem;
     flex-wrap: wrap;
+    gap: 8px;
 }
 
 .techTag {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    color: #ccc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #555;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.2s;
 }
 
-@media (max-width: 480px) {
-    .projectsContainer {
-        padding: 1rem; 
-    }
+.card:hover .techTag {
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+}
 
+/* Error State */
+.errorContainer {
+    text-align: center;
+    padding: 100px 24px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.errorCode {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #222;
+}
+
+/* Mobile Adaptive */
+@media (max-width: 600px) {
     .grid {
-        
         grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 1.5rem;
     }
-
+    
+    .mainTitle {
+        font-size: 2rem;
+    }
+    
     .card {
-        padding: 1.25rem; 
+        padding: 20px;
     }
 
-    .backLink {
-        margin-bottom: 1.5rem;
-        padding: 5px 0; 
+    .companyHeader {
+        flex-direction: column;
+        gap: 8px;
     }
 }

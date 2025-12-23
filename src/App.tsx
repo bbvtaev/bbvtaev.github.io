@@ -2,11 +2,11 @@ import { useState, useMemo, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import { Projects } from './pages/Projects/Projects';
-import { Plans } from './pages/Plans/Plans';
 import SeasonEffect, { type Season } from './SeasonEffect';
 import { Main } from './pages/Main/Main';
 import { experiences } from './data';
 import logoMini from '/realeyes_mini.png';
+import { ProjectDetail } from './pages/ProjectDetail/ProjectDetail';
 
 const getCurrentSeason = (): Season => {
   const month = new Date().getMonth();
@@ -63,8 +63,15 @@ const routeNames: Record<string, string> = {
 
 const getDisplayName = (segment: string) => {
   if (routeNames[segment]) return routeNames[segment];
+  
   const exp = experiences.find(e => e.id === segment);
   if (exp) return exp.company;
+
+  for (const e of experiences) {
+    const project = e.projects.find(p => p.id === segment);
+    if (project) return project.id;
+  }
+
   return segment.charAt(0).toUpperCase() + segment.slice(1);
 };
 
@@ -80,6 +87,9 @@ const NavLinks = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
+  const visibleSegments = pathnames.slice(-2); 
+  const startIndex = pathnames.length - visibleSegments.length;
+
   return (
     <div className="links">
       <Link to="/">
@@ -89,8 +99,9 @@ const NavLinks = () => {
         </div>
       </Link>
 
-      {pathnames.map((value, index) => {
-        const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+      {visibleSegments.map((value, index) => {
+        const actualIndex = startIndex + index;
+        const to = `/${pathnames.slice(0, actualIndex + 1).join('/')}`;
         const displayName = getDisplayName(value);
 
         return (
@@ -149,7 +160,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:companyId" element={<Projects />} />
-            <Route path="/plans" element={<Plans />} />
+            <Route path="/projects/:companyId/:projectId" element={<ProjectDetail />} />
             <Route path="/*" element={"404"} />
           </Routes>
         </main>

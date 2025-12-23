@@ -1,0 +1,186 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Навигация внутри страницы */
+.localNav {
+    display: flex;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace; /* если есть, или просто mono */
+    font-size: 0.85rem;
+    margin-bottom: 40px;
+    color: #666;
+    text-transform: lowercase;
+}
+
+.localNav a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.localNav a:hover {
+    color: #fff;
+}
+
+/* Шапка проекта */
+.header {
+    margin-bottom: 60px;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #aaa;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Контент */
+.overview {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 80px;
+    border-left: 2px solid #333;
+    padding-left: 30px;
+}
+
+.section {
+    margin-bottom: 80px;
+}
+
+.sectionTitle {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #555;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sectionTitle::after {
+    content: "";
+    height: 1px;
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Сетка процессов */
+.processGrid {
+    display: grid;
+    gap: 40px;
+}
+
+.step h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.step p {
+    line-height: 1.7;
+    color: #888;
+}
+
+/* Сетка результатов и челленджей */
+.outcomeGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 40px;
+}
+
+.outcomeSection h2 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.outcomeSection ul {
+    list-style: none;
+    padding: 0;
+}
+
+.outcomeSection li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 12px;
+    color: #888;
+    line-height: 1.5;
+}
+
+.outcomeSection li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: #444;
+}
+
+/* Кнопка назад */
+.backButton {
+    display: inline-block;
+    margin-top: 60px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid #333;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border-radius: 4px;
+}
+
+.backButton:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* Ошибка */
+.error {
+    text-align: center;
+    padding: 100px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .outcomeGrid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .overview {
+        font-size: 1.1rem;
+        padding-left: 20px;
+    }
+}
