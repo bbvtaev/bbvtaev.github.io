@@ -14,14 +14,13 @@ export const Main = () => {
                 <div className={styles.heroHeader}>
                     <div className={styles.heroText}>
                         <h1 className={styles.title}>Бакар Батаев</h1>
-                        <p className={styles.subtitle}>Middle Backend Developer / Software Architect</p>
+                        <p className={styles.subtitle}>Backend Developer</p>
                     </div>
                     <img src="/realeyes_avg.png" alt="Bakar Bataev" className={styles.avatar} />
                 </div>
                 
                 <p className={styles.description}>
-                    Специализируюсь на проектировании высоконагруженных систем и микросервисной архитектуре. 
-                    Верю в чистый код, строгую типизацию и инженерный подход к решению бизнес-задач.
+                    3+ года в IT (Fintech). Разрабатывал отказоусточивую потоковую обработку 10млн+ записей, спроектировал 2 платежные страницы, которые ни разу не падали под нагрузкой, разработал админский сервис в закрытом контуре, с возможностью контролировать систему нативными методами. 
                 </p>
             </section>
 

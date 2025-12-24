@@ -3,20 +3,16 @@ import styles from './Projects.module.css';
 import { experiences } from '../../data';
 
 export const Projects = () => {
-    // Берем оба параметра из URL
     const { companyId, projectId } = useParams();
 
-    // Находим компанию
     const selectedExp = companyId 
         ? experiences.find(e => e.id === companyId) 
         : null;
 
-    // Находим конкретный проект, если мы в него зашли
     const selectedProject = projectId 
         ? selectedExp?.projects.find(p => p.id === projectId)
         : null;
 
-    // Компонент карточки теперь всегда знает свой companyId
     const ProjectCard = ({ proj, index, compId }: { proj: any, index: number, compId: string }) => (
         <Link 
             to={`/projects/${compId}/${proj.id || index}`} 
@@ -37,7 +33,6 @@ export const Projects = () => {
         </Link>
     );
 
-    // СОСТОЯНИЕ 1: Открыт конкретный проект
     if (selectedProject) {
         return (
             <div className={styles.projectsContainer}>
@@ -58,7 +53,6 @@ export const Projects = () => {
         );
     }
 
-    // СОСТОЯНИЕ 2: Ошибка (компания не найдена)
     if (companyId && !selectedExp) {
         return (
             <div className={styles.errorContainer}>
@@ -69,7 +63,6 @@ export const Projects = () => {
         );
     }
 
-    // СОСТОЯНИЕ 3: Список проектов компании ИЛИ Весь архив
     return (
         <div className={styles.projectsContainer}>
             <div className={styles.header}>

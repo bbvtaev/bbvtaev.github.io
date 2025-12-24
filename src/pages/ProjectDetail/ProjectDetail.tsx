@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './ProjectDetail.module.css';
 import { experiences } from '../../data';
 
@@ -20,12 +20,6 @@ export const ProjectDetail = () => {
 
     return (
         <div className={styles.container}>
-            <nav className={styles.localNav}>
-                <Link to="/projects">archive</Link>
-                <span>/</span>
-                <Link to={`/projects/${companyId}`}>{company?.company}</Link>
-            </nav>
-
             <header className={styles.header}>
                 <h1 className={styles.title}>{project.name}</h1>
                 <div className={styles.tags}>
@@ -35,7 +29,7 @@ export const ProjectDetail = () => {
 
             <section className={styles.content}>
                 <div className={styles.overview}>
-                    <p>{project.desc}</p>
+                    <p>{project.fullDescription}</p>
                 </div>
 
                 {project.process && (
