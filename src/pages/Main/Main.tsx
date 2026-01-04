@@ -16,7 +16,7 @@ export const Main = () => {
                         <h1 className={styles.title}>Бакар Батаев</h1>
                         <p className={styles.subtitle}>Backend Developer</p>
                     </div>
-                    <img src="/realeyes_avg.png" alt="Bakar Bataev" className={styles.avatar} />
+                    <img src="/lolxD.jpg" alt="Bakar Bataev" className={styles.avatar} />
                 </div>
                 
                 <p className={styles.description}>
